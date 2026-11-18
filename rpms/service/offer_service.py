@@ -44,8 +44,8 @@ class OfferService:
         if not designation.strip():
             raise ValueError("Designation is required")
 
-        if package_lpa < 0:
-            raise ValueError("Package cannot be negative")
+        if package_lpa <= 0:
+            raise ValueError("Package must be greater than zero")
 
         if expected_joining_date and expected_joining_date < date.today():
             raise ValueError("Expected joining date cannot be in the past")
