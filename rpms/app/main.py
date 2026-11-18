@@ -351,7 +351,7 @@ def report_menu(ctx):
           "3. Company-wise Placements\n4. Applications by Status\n"
           "5. Job-wise Applications\n6. Upcoming Interviews\n"
           "7. Offers by Status\n8. Top Packages\n"
-          "9. Technology-wise Placements\n0. Back")
+          "9. Technology-wise Placements\n10. Candidates Not Placed\n0. Back")
     choice = ask_int("Enter Your Choice")
 
     if choice == 1:
@@ -372,6 +372,8 @@ def report_menu(ctx):
         print_table(*r.highest_package_placements(ask_int("How many records")))
     elif choice == 9:
         print_table(*r.technology_wise_placements())
+    elif choice == 10:
+        print_table(*r.not_placed_candidates())
 
 
 # ------------------------------------------------------------------ wiring

@@ -28,6 +28,17 @@ class ReportService:
         finally:
             con.close()
 
+    def not_placed_candidates(self):
+        return self._run(
+            '''
+            SELECT candidate_code, full_name, primary_technology, percentage
+            FROM candidates
+            WHERE placement_status = 'NOT_PLACED'
+            ORDER BY full_name
+            ''',
+            ["Code", "Name", "Technology", "Percentage"]
+        )
+
     def placement_summary(self):
         return self._run(
             '''
