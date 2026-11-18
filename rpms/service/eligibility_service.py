@@ -8,6 +8,9 @@ class EligibilityService:
         if candidate.profile_status.upper() != "ACTIVE":
             reasons.append("Candidate profile is not ACTIVE")
 
+        if candidate.placement_status.upper() == "PLACED":
+            reasons.append("Candidate is already placed")
+
         if job.status.upper() != "OPEN":
             reasons.append("Job is not OPEN")
 
