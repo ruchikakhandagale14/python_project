@@ -57,12 +57,12 @@ def ask_rating(prompt):
 
 def print_menu():
     print("\n==================================")
-    print("RECRUITMENT & PLACEMENT SYSTEM")
+    print("RECRUITMENT & PLACEMENT MANAGEMENT SYSTEM (RPMS)")
     print("==================================")
     print("1. Candidate Management")
     print("2. Company Management")
     print("3. Job Management")
-    print("4. Job Application (with Eligibility Check)")
+    print("4. Apply for Job (Eligibility Check)")
     print("5. Interview Management")
     print("6. Offer Management")
     print("7. Placement Management")
@@ -72,8 +72,8 @@ def print_menu():
 
 def candidate_menu(ctx):
     print("\n-- Candidate Management --")
-    print("1. View Candidates\n2. Add Candidate\n3. Find Candidate by ID\n0. Back")
-    choice = ask_int("Enter Choice")
+    print("1. View Candidates\n2. Add Candidate\n3. Search Candidate by ID\n0. Back")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         print_records(ctx.candidates.get_all_candidates())
@@ -88,7 +88,7 @@ def candidate_menu(ctx):
             passing_year=ask_int("Passing Year"),
             percentage=ask_float("Percentage"),
             backlog_count=ask_int("Backlog Count"),
-            primary_technology=ask("Primary Technology")
+            primary_technology=ask("Main Skill / Technology")
         )
         candidate_id = ctx.candidates.add_candidate(candidate)
         print(f"Candidate created. ID = {candidate_id}")
@@ -101,8 +101,8 @@ def candidate_menu(ctx):
 def company_menu(ctx):
     print("\n-- Company Management --")
     print("1. View Companies\n2. Add Company\n3. Update Company\n"
-          "4. Activate / Deactivate Company\n0. Back")
-    choice = ask_int("Enter Choice")
+          "4. Change Company Status (Active/Inactive)\n0. Back")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         print_records(ctx.companies.get_all_companies())
@@ -146,7 +146,7 @@ def job_menu(ctx):
     print("\n-- Job Management --")
     print("1. View Open Jobs\n2. View All Jobs\n3. Add Job\n4. Close Job\n"
           "5. Jobs of a Company\n0. Back")
-    choice = ask_int("Enter Choice")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         print_records(ctx.jobs.get_open_jobs())
@@ -161,7 +161,7 @@ def job_menu(ctx):
             job_title=ask("Job Title"),
             location=ask("Location"),
             openings=ask_int("Openings"),
-            min_package_lpa=ask_float("Minimum Package (LPA)"),
+            min_package_lpa=ask_float("Minimum Salary Package (LPA)"),
             max_package_lpa=ask_float("Maximum Package (LPA)"),
             min_percentage=ask_float("Minimum Percentage"),
             min_passing_year=ask_int("Minimum Passing Year"),
@@ -188,7 +188,7 @@ def application_menu(ctx):
     print("\n-- Job Application --")
     print("1. Apply for Job\n2. Check Eligibility (without applying)\n"
           "3. View Applications of a Candidate\n4. View All Applications\n0. Back")
-    choice = ask_int("Enter Choice")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         candidate_id = ask_int("Candidate ID")
@@ -218,9 +218,9 @@ def application_menu(ctx):
 def interview_menu(ctx):
     print("\n-- Interview Management --")
     print("1. Schedule Interview\n2. Reschedule Interview\n3. Cancel Interview\n"
-          "4. Mark No-Show\n5. Submit Feedback / Result\n"
+          "4. Mark Candidate as No-Show\n5. Submit Feedback / Result\n"
           "6. Interviews of an Application\n7. Upcoming Interviews\n0. Back")
-    choice = ask_int("Enter Choice")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         application_id = ask_int("Application ID")
@@ -278,9 +278,9 @@ def interview_menu(ctx):
 
 def offer_menu(ctx):
     print("\n-- Offer Management --")
-    print("1. Create Offer\n2. View Offers\n3. Accept Offer (creates placement)\n"
+    print("1. Create Offer\n2. View Offers\n3. Accept Offer & Create Placement\n"
           "4. Reject / Expire / Withdraw Offer\n0. Back")
-    choice = ask_int("Enter Choice")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         application_id = ask_int("Application ID (must be SELECTED)")
@@ -314,8 +314,8 @@ def offer_menu(ctx):
 def placement_menu(ctx):
     print("\n-- Placement Management --")
     print("1. View Placements\n2. Record Joining\n3. Defer Joining\n"
-          "4. Mark Not Joined / No-Show\n5. Placements of a Candidate\n0. Back")
-    choice = ask_int("Enter Choice")
+          "4. Cancel Placement (Not Joined / No-Show)\n5. Placements of a Candidate\n0. Back")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         print_records(ctx.placements.get_all_placements())
@@ -352,7 +352,7 @@ def report_menu(ctx):
           "5. Job-wise Applications\n6. Upcoming Interviews\n"
           "7. Offers by Status\n8. Top Packages\n"
           "9. Technology-wise Placements\n0. Back")
-    choice = ask_int("Enter Choice")
+    choice = ask_int("Enter Your Choice")
 
     if choice == 1:
         print_table(["Technology", "Candidates"], r.candidate_count_by_technology())
@@ -423,7 +423,7 @@ def main():
         print_menu()
 
         try:
-            choice = int(input("Enter Choice: "))
+            choice = int(input("Enter Your Choice: "))
 
             if choice == 9:
                 print("Application closed.")
