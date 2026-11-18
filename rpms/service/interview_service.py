@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 
 from rpms.exception.exceptions import (
     ApplicationNotFoundError,
@@ -7,6 +7,8 @@ from rpms.exception.exceptions import (
 )
 from rpms.model.interview import Interview, InterviewFeedback
 
+WORK_START = time(9, 0)
+WORK_END = time(18, 0)
 VALID_MODES = ("ONLINE", "OFFLINE", "TELEPHONIC")
 VALID_RECOMMENDATIONS = ("NEXT_ROUND", "SELECTED", "REJECTED", "ON_HOLD")
 FINAL_STATUSES = ("REJECTED", "WITHDRAWN", "OFFERED", "JOINED")
@@ -49,6 +51,9 @@ class InterviewService:
 
         if scheduled_date < date.today():
             raise ValueError("Interview date cannot be in the past")
+
+        if not (WORK_START <= scheduled_time <= WORK_END):
+            raise ValueError("Interview time must be between 09:00 and 18:00")
 
         # A new round can start only after the previous round is finished.
         for existing in self.interview_dao.find_by_application(application_id):
