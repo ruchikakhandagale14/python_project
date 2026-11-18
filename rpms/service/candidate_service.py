@@ -1,6 +1,7 @@
 from rpms.exception.exceptions import CandidateNotFoundError
 from rpms.util.validation import (
     is_valid_email,
+    is_valid_name,
     is_valid_mobile,
     is_valid_percentage,
     is_valid_backlog_count
@@ -12,6 +13,9 @@ class CandidateService:
         self.candidate_dao = candidate_dao
 
     def add_candidate(self, candidate):
+        if not is_valid_name(candidate.full_name):
+            raise ValueError("Full name must have letters only (minimum 2 characters)")
+
         if not is_valid_email(candidate.email):
             raise ValueError("Invalid email")
 
